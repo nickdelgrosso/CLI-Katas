@@ -10,10 +10,13 @@ Example: `python profile_csv.py penguin.csv --out penguin_report.html`
 
 import pandas as pd
 from pandas_profiling import ProfileReport
+from argparse import ArgumentParser
 
-filename = "penguins.csv"
-report_filename = 'penguin_report.html'
+parser = ArgumentParser(description='Creates a statistics report on any CSV file')
+parser.add_argument('filename', help='name of the file')
+parser.add_argument('report_filename', help='name of the report')
+args = parser.parse_args()
 
-df = pd.read_csv(filename)
+df = pd.read_csv(args.filename)
 report = ProfileReport(df)
-report.to_file(report_filename)
+report.to_file(args.report_filename)

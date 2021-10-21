@@ -5,16 +5,17 @@ Goal:  Using the argparse package, change this script so that its parameters can
 
 Interface:  `python plot_hist.py -n 100 --mean 5 --sd 20 --bins 4`
 """
-
-
 import numpy as np
 import matplotlib.pyplot as plt
+from argparse import ArgumentParser
 
-n = 50
-mean = 10
-sd = 0.2
-n_bins = 10
+parser = ArgumentParser(description="Plots a histogram")
+parser.add_argument('n', type=int)
+parser.add_argument('mean', type=float)
+parser.add_argument('sd', type=float)
+parser.add_argument('n_bins', type=int)
+args = parser.parse_args()
 
-data = np.random.randn(n) * sd + mean
-plt.hist(data, bins=n_bins)
+data = np.random.randn(args.n) * args.sd + args.mean
+plt.hist(data, bins=args.n_bins)
 plt.show()
